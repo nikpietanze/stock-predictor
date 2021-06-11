@@ -1,20 +1,29 @@
 import requests
 import config
+from datetime import datetime
 
 
 class Stock:
-  def __init__(self, symbol, region):
-    self.symbol = symbol
+  def __init__(self, ticker, region):
+    self.ticker = ticker
     self.region = region
+    self.updated_at = datetime.utcnow()
+
+  def cached(self):
+    difference = datetime.utcnow() - self.updated_at
+    if (difference.days == 0):
+      return True
+    else:
+      return False
 
   def getDetails(self):
-    details = 'Stock: ' + self.symbol + '\n' + 'Region: ' + self.region
+    details = 'Stock: ' + self.ticker + '\n' + 'Region: ' + self.region
     return details
 
   def getStockData(self):
     url = config.API_URL
     querystring = {
-        'symbol': self.symbol,
+        'symbol': self.ticker,
         'region': self.region
     }
     headers = {
