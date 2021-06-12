@@ -1,0 +1,5 @@
+[tool.autopep8]
+max_line_length = 120
+indent-after-paren = 2
+indent-size = 2
+ignore = "E121"
